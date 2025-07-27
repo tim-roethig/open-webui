@@ -415,6 +415,9 @@ async def get_rag_config(request: Request, user=Depends(get_admin_user)):
         "DOCLING_SERVER_URL": request.app.state.config.DOCLING_SERVER_URL,
         "DOCLING_OCR_ENGINE": request.app.state.config.DOCLING_OCR_ENGINE,
         "DOCLING_OCR_LANG": request.app.state.config.DOCLING_OCR_LANG,
+        "DOCLING_FORCE_OCR": request.app.state.config.DOCLING_FORCE_OCR,
+        "DOCLING_IMAGE_EXPORT_MODE": request.app.state.config.DOCLING_IMAGE_EXPORT_MODE,
+        "DOCLING_TABLE_MODE": request.app.state.config.DOCLING_TABLE_MODE,
         "DOCLING_DO_PICTURE_DESCRIPTION": request.app.state.config.DOCLING_DO_PICTURE_DESCRIPTION,
         "DOCLING_PICTURE_DESCRIPTION_MODE": request.app.state.config.DOCLING_PICTURE_DESCRIPTION_MODE,
         "DOCLING_PICTURE_DESCRIPTION_LOCAL": request.app.state.config.DOCLING_PICTURE_DESCRIPTION_LOCAL,
@@ -581,6 +584,9 @@ class ConfigForm(BaseModel):
     DOCLING_SERVER_URL: Optional[str] = None
     DOCLING_OCR_ENGINE: Optional[str] = None
     DOCLING_OCR_LANG: Optional[str] = None
+    DOCLING_FORCE_OCR: Optional[bool] = None
+    DOCLING_IMAGE_EXPORT_MODE: Optional[str] = None
+    DOCLING_TABLE_MODE: Optional[str] = None
     DOCLING_DO_PICTURE_DESCRIPTION: Optional[bool] = None
     DOCLING_PICTURE_DESCRIPTION_MODE: Optional[str] = None
     DOCLING_PICTURE_DESCRIPTION_LOCAL: Optional[dict] = None
@@ -752,6 +758,21 @@ async def update_rag_config(
         form_data.DOCLING_OCR_LANG
         if form_data.DOCLING_OCR_LANG is not None
         else request.app.state.config.DOCLING_OCR_LANG
+    )
+    request.app.state.config.DOCLING_FORCE_OCR = (
+        form_data.DOCLING_FORCE_OCR
+        if form_data.DOCLING_FORCE_OCR is not None
+        else request.app.state.config.DOCLING_FORCE_OCR
+    )
+    request.app.state.config.DOCLING_IMAGE_EXPORT_MODE = (
+        form_data.DOCLING_IMAGE_EXPORT_MODE
+        if form_data.DOCLING_IMAGE_EXPORT_MODE is not None
+        else request.app.state.config.DOCLING_IMAGE_EXPORT_MODE
+    )
+    request.app.state.config.DOCLING_TABLE_MODE = (
+        form_data.DOCLING_TABLE_MODE
+        if form_data.DOCLING_TABLE_MODE is not None
+        else request.app.state.config.DOCLING_TABLE_MODE
     )
 
     request.app.state.config.DOCLING_DO_PICTURE_DESCRIPTION = (
@@ -1020,6 +1041,9 @@ async def update_rag_config(
         "DOCLING_SERVER_URL": request.app.state.config.DOCLING_SERVER_URL,
         "DOCLING_OCR_ENGINE": request.app.state.config.DOCLING_OCR_ENGINE,
         "DOCLING_OCR_LANG": request.app.state.config.DOCLING_OCR_LANG,
+        "DOCLING_FORCE_OCR": request.app.state.config.DOCLING_FORCE_OCR,
+        "DOCLING_IMAGE_EXPORT_MODE": request.app.state.config.DOCLING_IMAGE_EXPORT_MODE,
+        "DOCLING_TABLE_MODE": request.app.state.config.DOCLING_TABLE_MODE,
         "DOCLING_DO_PICTURE_DESCRIPTION": request.app.state.config.DOCLING_DO_PICTURE_DESCRIPTION,
         "DOCLING_PICTURE_DESCRIPTION_MODE": request.app.state.config.DOCLING_PICTURE_DESCRIPTION_MODE,
         "DOCLING_PICTURE_DESCRIPTION_LOCAL": request.app.state.config.DOCLING_PICTURE_DESCRIPTION_LOCAL,
@@ -1421,6 +1445,9 @@ def process_file(
                     DOCLING_PARAMS={
                         "ocr_engine": request.app.state.config.DOCLING_OCR_ENGINE,
                         "ocr_lang": request.app.state.config.DOCLING_OCR_LANG,
+                        "force_ocr": request.app.state.config.DOCLING_FORCE_OCR,
+                        "image_export_mode": request.app.state.config.DOCLING_IMAGE_EXPORT_MODE,
+                        "table_mode": request.app.state.config.DOCLING_TABLE_MODE,
                         "do_picture_description": request.app.state.config.DOCLING_DO_PICTURE_DESCRIPTION,
                         "picture_description_mode": request.app.state.config.DOCLING_PICTURE_DESCRIPTION_MODE,
                         "picture_description_local": request.app.state.config.DOCLING_PICTURE_DESCRIPTION_LOCAL,

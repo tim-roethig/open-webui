@@ -147,7 +147,11 @@ class DoclingLoader:
                 )
             }
 
-            params = {"image_export_mode": "placeholder", "table_mode": "accurate"}
+            params = {
+                "image_export_mode": self.params.get("image_export_mode", "placeholder"),
+                "table_mode": self.params.get("table_mode", "accurate"),
+                "force_ocr": str(self.params.get("force_ocr", False)).lower(),
+            }
 
             if self.params:
                 if self.params.get("do_picture_description"):

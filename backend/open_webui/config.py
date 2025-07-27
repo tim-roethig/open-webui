@@ -2107,6 +2107,24 @@ DOCLING_OCR_LANG = PersistentConfig(
     os.getenv("DOCLING_OCR_LANG", "eng,fra,deu,spa"),
 )
 
+DOCLING_FORCE_OCR = PersistentConfig(
+    "DOCLING_FORCE_OCR",
+    "rag.docling_force_ocr",
+    os.getenv("DOCLING_FORCE_OCR", "False").lower() == "true",
+)
+
+DOCLING_IMAGE_EXPORT_MODE = PersistentConfig(
+    "DOCLING_IMAGE_EXPORT_MODE",
+    "rag.docling_image_export_mode",
+    os.getenv("DOCLING_IMAGE_EXPORT_MODE", "placeholder"),
+)
+
+DOCLING_TABLE_MODE = PersistentConfig(
+    "DOCLING_TABLE_MODE",
+    "rag.docling_table_mode",
+    os.getenv("DOCLING_TABLE_MODE", "accurate"),
+)
+
 DOCLING_DO_PICTURE_DESCRIPTION = PersistentConfig(
     "DOCLING_DO_PICTURE_DESCRIPTION",
     "rag.docling_do_picture_description",
